@@ -1,0 +1,11 @@
+.listDiv{
+    /*height: 70vh;*/
+    border: 1px solid black;
+    display: flex;
+    margin-top: 40px;
+    /*align-self: flex-end;*/
+    /*flex-direction: column;*/
+    /*align-self: flex-end;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}

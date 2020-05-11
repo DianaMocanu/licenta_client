@@ -1,25 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GradleLocalSettings">
-    <option name="projectSyncType">
-      <map>
-        <entry key="$USER_HOME$/IdeaProjects/server_repo" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../An3_sem1/ma/crud-project-petrutmanaila-master/server" value="PREVIEW" />
-      </map>
+  <component name="ChangeListManager">
+    <list default="true" id="231d6fea-5908-4e40-9bd4-58b8e30f351e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/css/custom_vars.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="980" />
-    <option name="height" value="1060" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1bDO3GXdNLTccDOHmWf4MZ7cRzN" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1588154205044" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../VVSS/Lab5Serenity2020" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="node" />
+    <property name="node.js.path.for.package.standard" value="node" />
+    <property name="node.js.selected.package.eslint" value="D:\All\An3_sem2\Licenta\licenta_client_v1\node_modules\eslint" />
+    <property name="node.js.selected.package.standard" value="D:\All\An3_sem2\Licenta\licenta_client_v1\node_modules\eslint" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="preferences.updates" />
+  </component>
+  <component name="RunManager" selected="npm.npm start">
+    <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+    <configuration name="npm start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="231d6fea-5908-4e40-9bd4-58b8e30f351e" name="Default Changelist" comment="" />
+      <created>1587998382843</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587998382843</updated>
+      <workItem from="1587998386295" duration="24392000" />
+      <workItem from="1588154249737" duration="4276000" />
+      <workItem from="1588163008386" duration="3337000" />
+      <workItem from="1588231948358" duration="10718000" />
+      <workItem from="1588703299832" duration="59000" />
+      <workItem from="1588776929892" duration="1074000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="233" key="FileChooserDialogImpl" timestamp="1588703356307">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="552" y="233" key="FileChooserDialogImpl/0.0.1536.832@0.0.1536.832" timestamp="1588703356307" />
+    <state width="361" height="211" key="GridCell.Tab.0.bottom" timestamp="1588324894976">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state width="361" height="211" key="GridCell.Tab.0.bottom/0.0.1536.832@0.0.1536.832" timestamp="1588324894976" />
+    <state width="361" height="211" key="GridCell.Tab.0.center" timestamp="1588324894976">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state width="361" height="211" key="GridCell.Tab.0.center/0.0.1536.832@0.0.1536.832" timestamp="1588324894976" />
+    <state width="361" height="211" key="GridCell.Tab.0.left" timestamp="1588324894976">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state width="361" height="211" key="GridCell.Tab.0.left/0.0.1536.832@0.0.1536.832" timestamp="1588324894976" />
+    <state width="361" height="211" key="GridCell.Tab.0.right" timestamp="1588324894976">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state width="361" height="211" key="GridCell.Tab.0.right/0.0.1536.832@0.0.1536.832" timestamp="1588324894976" />
+    <state x="349" y="151" key="IDE.errors.dialog" timestamp="1588163059576">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="349" y="151" key="IDE.errors.dialog/0.0.1536.832@0.0.1536.832" timestamp="1588163059576" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/Components/Requests.js</url>
+          <line>56</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="masterDetails">
     <states>
