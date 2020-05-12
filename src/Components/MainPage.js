@@ -4,6 +4,7 @@ import "../css/main.css"
 import WriteQuery from "./WriteQuery";
 import Result from "./Result";
 import List from "./List";
+import Table from "./Table";
 
 
 class MainPage extends Component{
@@ -12,6 +13,9 @@ class MainPage extends Component{
         this.state = {
             newQuery: "",
             results: [],
+            columns: [],
+            queryResults: [],
+            showTable: !false,
         };
     }
 
@@ -41,6 +45,31 @@ class MainPage extends Component{
         }
 
     };
+    togglePopup = () => {
+        this.setState(prevState => ({
+            showTable: !prevState.showTable
+        }));
+    };
+    clickExecute = async (query) => {
+        const Data ={
+            database: 'iris',
+            query: query
+        };
+        const config = { headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'}
+        };
+
+        let result = await axios.post(`http://127.0.0.1:5000/execute`, {Data}, config)
+        if(result.status === 200){
+            let data_result = result.data;
+            const columns = data_result.columns
+            const results = data_result.results
+            this.setState({columns: columns, queryResults: results})
+            // this.togglePopup()
+        }
+
+    };
 
     render() {
         return(
@@ -50,10 +79,14 @@ class MainPage extends Component{
                     <div>Statistica aici</div>
                 </div>
                 <div className="elementsCol">
-                    <WriteQuery clickGenerate={this.clickGenerate}/>
+                    <WriteQuery clickGenerate={this.clickGenerate} clickExecute={this.clickExecute}/>
                     <Result result={ this.state.newQuery}/>
                 </div>
                 <List results={this.state.results}/>
+                {this.state.showTable ? (
+                    <Table columns={this.state.columns} results={this.state.queryResults} closePopup={this.togglePopup}/>)
+                    :null
+                }
             </div>
 
         );

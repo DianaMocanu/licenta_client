@@ -18,11 +18,17 @@ class WriteQuery extends React.Component{
         let query = this.state.value;
         this.props.clickGenerate(query)
     };
+    handleExecClick =() => {
+        let query = this.state.value;
+        this.props.clickExecute(query)
+    };
+
     render() {
         return (
             <div className="writeQueryDiv" >
                 <textarea className="inputQuery" value={this.state.value} onChange={this.handleChange}/>
                 <button className="appButtons" onClick={this.handleClick}>Generate</button>
+                <button className="appButtons" onClick={this.handleExecClick}>Execute</button>
             </div>
         );
     }

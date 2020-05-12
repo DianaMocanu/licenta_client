@@ -1,0 +1,23 @@
+.tableMain{
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top:10px;
+    height: 80%;
+    margin: 70px auto 0;
+    table-layout: fixed;
+    width: 57% ;
+}
+
+tbody {
+    display:block;
+    overflow:auto;
+}
+
+.columns{
+    height: 1.5em;
+    vertical-align: middle;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.05);
+    margin-bottom: 10px;
+    border-bottom: 3px solid var(--purpleAccentColor);
+}
