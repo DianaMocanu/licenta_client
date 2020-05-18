@@ -1,17 +1,27 @@
 .tableMain{
-    font-size: 20px;
+    font-size: 17px;
     text-align: center;
     vertical-align: middle;
-    padding-top:10px;
-    height: 80%;
-    margin: 70px auto 0;
+    /*padding-top:10px;*/
+    height: 45vh;
+    width: 100%;
+    margin: 1vh auto 0;
     table-layout: fixed;
-    width: 57% ;
+    border: 3px solid var(--purpleAccentColor);
+
+    /*width: 27% ;*/
 }
 
 tbody {
     display:block;
     overflow:auto;
+    max-height: 45vh;
+}
+
+
+.tableDiv{
+    display: inline-block;
+    max-height: 45vh;
 }
 
 .columns{

@@ -1,11 +1,25 @@
 .listDiv{
-    /*height: 70vh;*/
-    border: 1px solid black;
+
+    background: white;
+    height: 45vh;
+    border: 3px solid var(--purpleAccentColor);
     display: flex;
-    margin-top: 40px;
+    /*width: 93%;*/
+    margin-top: 4vh;
     /*align-self: flex-end;*/
-    /*flex-direction: column;*/
+    flex-direction: column;
     /*align-self: flex-end;*/
     /*justify-content: center;*/
     /*align-items: center;*/
+}
+.conditionLiClass{
+    /*background: var(--purpleAccentColor);*/
+    margin: 7px 5px 5px;
+    border-radius: 3px;
+    font-size: 17px;
+    /*color: #FFFFFF;*/
+
+}
+#ulResult{
+    height: 100%;
 }

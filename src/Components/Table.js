@@ -12,7 +12,6 @@ function Table(props){
     }
     const getTableBody = () =>{
         return props.results.map((col, index)=>{
-            console.log(col)
             return(
                 <tr key={index}>
                     {
@@ -29,12 +28,6 @@ function Table(props){
 
     return(
         <div className="tableDiv">
-            {/*<img*/}
-            {/*    id="close_btn"*/}
-            {/*    src={require("../images/close_btn.png")}*/}
-            {/*    alt="close button"*/}
-            {/*    onClick={props.closePopup}*/}
-            {/*/>*/}
             <table className="tableMain">
                 <tbody>
                 <tr>

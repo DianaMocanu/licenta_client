@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Rokkitt:wght@500&family=Vollkorn&display=swap");
+
 :root{
     --yellowColor: #F3DFA2;
     --white: #ffff;
@@ -7,5 +9,7 @@
     --lightColor2: #f6f4f4;
     --darkAccentColor: #BB4430;
     --purpleAccentColor: #773344;
+    --writeStyle:'Rokkitt', serif;
+    --writeStyle2: 'Vollkorn', serif;
 
 }

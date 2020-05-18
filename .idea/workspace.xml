@@ -2,9 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="231d6fea-5908-4e40-9bd4-58b8e30f351e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/licenta_client_v1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/licenta_client_v1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/List.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/List.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MainPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Result.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Result.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Table.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/WriteQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/WriteQuery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/WriteQuery.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/WriteQuery.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/custom_vars.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/custom_vars.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/list.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/list.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/result.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/result.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/table.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/table.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -30,6 +43,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1588154205044" />
@@ -37,9 +51,9 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
-    <property name="node.js.path.for.package.eslint" value="node" />
+    <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.standard" value="node" />
-    <property name="node.js.selected.package.eslint" value="D:\All\An3_sem2\Licenta\licenta_client_v1\node_modules\eslint" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.standard" value="D:\All\An3_sem2\Licenta\licenta_client_v1\node_modules\eslint" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -84,7 +98,10 @@
       <workItem from="1588703299832" duration="59000" />
       <workItem from="1588776929892" duration="1074000" />
       <workItem from="1589193294279" duration="114000" />
-      <workItem from="1589216464740" duration="7622000" />
+      <workItem from="1589216464740" duration="9345000" />
+      <workItem from="1589304188791" duration="1049000" />
+      <workItem from="1589631655645" duration="43000" />
+      <workItem from="1589651031945" duration="29548000" />
     </task>
     <servers />
   </component>
@@ -92,6 +109,10 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="511" y="178" key="#ESLint" timestamp="1589713965703">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="511" y="178" key="#ESLint/0.0.1536.832@0.0.1536.832" timestamp="1589713965703" />
     <state x="552" y="233" key="FileChooserDialogImpl" timestamp="1588703356307">
       <screen x="0" y="0" width="1536" height="832" />
     </state>
@@ -148,6 +169,14 @@
       <screen x="0" y="0" width="1536" height="832" />
     </state>
     <state x="349" y="151" key="IDE.errors.dialog/0.0.1536.832@0.0.1536.832" timestamp="1588163059576" />
+    <state x="478" y="151" width="579" height="530" key="find.popup" timestamp="1589710880914">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="478" y="151" width="579" height="530" key="find.popup/0.0.1536.832@0.0.1536.832" timestamp="1589710880914" />
+    <state x="425" y="189" key="run.anything.popup" timestamp="1589653771531">
+      <screen x="0" y="0" width="1536" height="832" />
+    </state>
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.832@0.0.1536.832" timestamp="1589653771531" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -159,14 +188,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/Components/MainPage.js</url>
-          <line>67</line>
-          <properties lambdaOrdinal="-1" />
+          <line>97</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/Components/MainPage.js</url>
-          <line>66</line>
-          <properties lambdaOrdinal="-1" />
+          <line>96</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>

@@ -5,6 +5,9 @@ import WriteQuery from "./WriteQuery";
 import Result from "./Result";
 import List from "./List";
 import Table from "./Table";
+// import FormLabel from "@material-ui/core/FormLabel";
+import {Button, ButtonGroup, FormLabel} from "@material-ui/core";
+
 
 
 class MainPage extends Component{
@@ -12,6 +15,7 @@ class MainPage extends Component{
         super(props);
         this.state = {
             newQuery: "",
+            initialQuery: "",
             results: [],
             columns: [],
             queryResults: [],
@@ -19,9 +23,34 @@ class MainPage extends Component{
         };
     }
 
-    constructNewQuery = (query, condition)=>{
+    getQueryFirstPart = query =>{
         let whereIndex = query.toLowerCase().indexOf("where");
-        let first_part = query.slice(0, whereIndex);
+        return query.slice(0, whereIndex + 5)
+    }
+
+    constructDisjunctionCondition = resultIds =>{
+        console.log(resultIds.length)
+        if(resultIds.length === 0){
+            let whereIndex = this.state.initialQuery.toLowerCase().indexOf("where");
+            const newQuery = this.getQueryFirstPart(this.state.initialQuery).slice(0, whereIndex);
+            this.setState({newQuery: newQuery});
+            return;
+        }
+
+        let newCond = ""
+        resultIds.forEach((id)=>{
+            let idInt = parseInt(id);
+            newCond +=  "( " +this.state.results[idInt] + ") or ";
+        })
+
+        const finalCond = newCond.slice(0, newCond.length - 3)
+        const newQuery = this.getQueryFirstPart(this.state.initialQuery) + " " + finalCond;
+        this.setState({newQuery: newQuery});
+    }
+
+    constructNewQuery = (query, condition)=>{
+
+        const first_part = this.getQueryFirstPart(query)
         return first_part + " " + condition
     };
 
@@ -30,6 +59,7 @@ class MainPage extends Component{
             database: 'iris',
             query: query
         };
+        this.setState({initialQuery: query});
         const config = { headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'}
@@ -40,16 +70,16 @@ class MainPage extends Component{
             let newQuery = this.constructNewQuery(query, data_result[0])
             this.setState({newQuery: newQuery, results: data_result});
 
-
-
         }
 
     };
+
     togglePopup = () => {
         this.setState(prevState => ({
             showTable: !prevState.showTable
         }));
     };
+
     clickExecute = async (query) => {
         const Data ={
             database: 'iris',
@@ -75,18 +105,28 @@ class MainPage extends Component{
         return(
             <div className="main">
                 <div className="elementsCol">
-                    <div>Data here</div>
-                    <div>Statistica aici</div>
+                    <div className="showCategoryDiv">
+                        <FormLabel>
+                            Databases:
+                            <ButtonGroup>
+                                <Button>iris</Button>
+                            </ButtonGroup>
+                        </FormLabel>
+                    </div>
+                    <div className="showCategoryDiv">Statistica aici</div>
                 </div>
                 <div className="elementsCol">
                     <WriteQuery clickGenerate={this.clickGenerate} clickExecute={this.clickExecute}/>
                     <Result result={ this.state.newQuery}/>
                 </div>
-                <List results={this.state.results}/>
-                {this.state.showTable ? (
-                    <Table columns={this.state.columns} results={this.state.queryResults} closePopup={this.togglePopup}/>)
-                    :null
-                }
+                <div className="elementsCol">
+                    <List results={this.state.results} reconstructCondition={this.constructDisjunctionCondition}/>
+                    {this.state.showTable ? (
+                            <Table columns={this.state.columns} results={this.state.queryResults} closePopup={this.togglePopup}/>)
+                        :null
+                    }
+                </div>
+
             </div>
 
         );
