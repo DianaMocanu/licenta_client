@@ -7,6 +7,8 @@ import List from "./List";
 import Table from "./Table";
 // import FormLabel from "@material-ui/core/FormLabel";
 import {Button, ButtonGroup, FormLabel} from "@material-ui/core";
+import DatabaseInformation from "./DatabaseInformation";
+import {NotificationManager} from "react-notifications";
 
 
 
@@ -29,7 +31,7 @@ class MainPage extends Component{
     }
 
     constructDisjunctionCondition = resultIds =>{
-        console.log(resultIds.length)
+        console.log(resultIds.length);
         if(resultIds.length === 0){
             let whereIndex = this.state.initialQuery.toLowerCase().indexOf("where");
             const newQuery = this.getQueryFirstPart(this.state.initialQuery).slice(0, whereIndex);
@@ -37,20 +39,20 @@ class MainPage extends Component{
             return;
         }
 
-        let newCond = ""
+        let newCond = "";
         resultIds.forEach((id)=>{
             let idInt = parseInt(id);
             newCond +=  "( " +this.state.results[idInt] + ") or ";
-        })
+        });
 
-        const finalCond = newCond.slice(0, newCond.length - 3)
+        const finalCond = newCond.slice(0, newCond.length - 3);
         const newQuery = this.getQueryFirstPart(this.state.initialQuery) + " " + finalCond;
         this.setState({newQuery: newQuery});
-    }
+    };
 
     constructNewQuery = (query, condition)=>{
 
-        const first_part = this.getQueryFirstPart(query)
+        const first_part = this.getQueryFirstPart(query);
         return first_part + " " + condition
     };
 
@@ -64,12 +66,15 @@ class MainPage extends Component{
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'}
         };
-        let result = await axios.post(`http://127.0.0.1:5000/query`, {Data}, config)
+        let result = await axios.post(`http://127.0.0.1:5000/query`, {Data}, config);
         if(result.status === 200){
             let data_result = result.data;
             let newQuery = this.constructNewQuery(query, data_result[0])
             this.setState({newQuery: newQuery, results: data_result});
 
+        }
+        if(result.status === 209){
+            NotificationManager.error(result.data,"", 4000);
         }
 
     };
@@ -90,13 +95,16 @@ class MainPage extends Component{
                 'Access-Control-Allow-Origin': '*'}
         };
 
-        let result = await axios.post(`http://127.0.0.1:5000/execute`, {Data}, config)
+        let result = await axios.post(`http://127.0.0.1:5000/execute`, {Data}, config);
         if(result.status === 200){
             let data_result = result.data;
-            const columns = data_result.columns
-            const results = data_result.results
+            const columns = data_result.columns;
+            const results = data_result.results;
             this.setState({columns: columns, queryResults: results})
             // this.togglePopup()
+        }
+        if(result.status === 209){
+            NotificationManager.error(result.data,"", 4000);
         }
 
     };
@@ -105,14 +113,7 @@ class MainPage extends Component{
         return(
             <div className="main">
                 <div className="elementsCol">
-                    <div className="showCategoryDiv">
-                        <FormLabel>
-                            Databases:
-                            <ButtonGroup>
-                                <Button>iris</Button>
-                            </ButtonGroup>
-                        </FormLabel>
-                    </div>
+                   <DatabaseInformation/>
                     <div className="showCategoryDiv">Statistica aici</div>
                 </div>
                 <div className="elementsCol">

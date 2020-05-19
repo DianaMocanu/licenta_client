@@ -9,7 +9,7 @@ function Table(props){
                 <th className="columns" key={index}>{col}</th>
             );
         })
-    }
+    };
     const getTableBody = () =>{
         return props.results.map((col, index)=>{
             return(
@@ -24,7 +24,7 @@ function Table(props){
                 </tr>
             );
         })
-    }
+    };
 
     return(
         <div className="tableDiv">
