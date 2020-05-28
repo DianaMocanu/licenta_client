@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import "../css/main.css"
 import WriteQuery from "./WriteQuery";
 import Result from "./Result";
-import List from "./List";
+import ListResult from "./ListResut";
 import Table from "./Table";
-// import FormLabel from "@material-ui/core/FormLabel";
-import {Button, ButtonGroup, FormLabel} from "@material-ui/core";
 import DatabaseInformation from "./DatabaseInformation";
 import {NotificationManager} from "react-notifications";
+import Requests from "./Requests";
 
 
 
@@ -31,7 +29,7 @@ class MainPage extends Component{
     }
 
     constructDisjunctionCondition = resultIds =>{
-        console.log(resultIds.length);
+        console.log(resultIds);
         if(resultIds.length === 0){
             let whereIndex = this.state.initialQuery.toLowerCase().indexOf("where");
             const newQuery = this.getQueryFirstPart(this.state.initialQuery).slice(0, whereIndex);
@@ -42,7 +40,7 @@ class MainPage extends Component{
         let newCond = "";
         resultIds.forEach((id)=>{
             let idInt = parseInt(id);
-            newCond +=  "( " +this.state.results[idInt] + ") or ";
+            newCond +=  "( " +this.state.results[idInt].value + ") or ";
         });
 
         const finalCond = newCond.slice(0, newCond.length - 3);
@@ -62,18 +60,29 @@ class MainPage extends Component{
             query: query
         };
         this.setState({initialQuery: query});
-        const config = { headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'}
-        };
-        let result = await axios.post(`http://127.0.0.1:5000/query`, {Data}, config);
-        if(result.status === 200){
+        let result = await Requests.create('generate', Data)
+
+        if(result.ok){
             let data_result = result.data;
             let newQuery = this.constructNewQuery(query, data_result[0])
-            this.setState({newQuery: newQuery, results: data_result});
+            let result_cond = [];
+            data_result.forEach((row, index)=> {
+                if(index === 0)
+                    result_cond[index] = {
+                        checked: true,
+                        value: row,
+                    }
+                else {
+                    result_cond[index] = {
+                        checked: false,
+                        value: row,
+                    }
+                }
+            });
+            this.setState({newQuery: newQuery, results: result_cond});
 
         }
-        if(result.status === 209){
+        else{
             NotificationManager.error(result.data,"", 4000);
         }
 
@@ -90,20 +99,15 @@ class MainPage extends Component{
             database: 'iris',
             query: query
         };
-        const config = { headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'}
-        };
 
-        let result = await axios.post(`http://127.0.0.1:5000/execute`, {Data}, config);
-        if(result.status === 200){
+        let result = await Requests.create(`execute`, Data);
+        if(result.ok){
             let data_result = result.data;
             const columns = data_result.columns;
             const results = data_result.results;
             this.setState({columns: columns, queryResults: results})
-            // this.togglePopup()
         }
-        if(result.status === 209){
+        else{
             NotificationManager.error(result.data,"", 4000);
         }
 
@@ -121,7 +125,8 @@ class MainPage extends Component{
                     <Result result={ this.state.newQuery}/>
                 </div>
                 <div className="elementsCol">
-                    <List results={this.state.results} reconstructCondition={this.constructDisjunctionCondition}/>
+
+                    <ListResult results={this.state.results} reconstructCondition={this.constructDisjunctionCondition}/>
                     {this.state.showTable ? (
                             <Table columns={this.state.columns} results={this.state.queryResults} closePopup={this.togglePopup}/>)
                         :null

@@ -4,6 +4,7 @@
     height: 45vh;
     border: 3px solid var(--purpleAccentColor);
     display: flex;
+    /*font-size: 30px;*/
     /*width: 93%;*/
     margin-top: 4vh;
     /*align-self: flex-end;*/
@@ -22,4 +23,8 @@
 }
 #ulResult{
     height: 100%;
+}
+
+.listFont{
+    font-size: 30px;
 }

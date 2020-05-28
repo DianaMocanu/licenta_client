@@ -10,7 +10,7 @@ function Result(props){
     };
     return (
         <div className="resultDiv">
-            <textarea className="inputQuery" id="result" value={props.result}/>
+            <textarea className="inputQuery" id="result" value={props.result} onChange={null}/>
             <button className="appButtons" onClick={clickRunQuery}>Run Query</button>
         </div>
     );
