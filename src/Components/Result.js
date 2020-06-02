@@ -2,7 +2,7 @@ import React from 'react';
 import "../css/result.css"
 import { NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import {Button} from "semantic-ui-react";
+import {Button, Header} from "semantic-ui-react";
 
 function Result(props){
 

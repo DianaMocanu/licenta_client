@@ -3,7 +3,7 @@ import "../css/main.css"
 import WriteQuery from "./WriteQuery";
 import Result from "./Result";
 import ListResult from "./ListResut";
-import Table from "./Table";
+import TablePopup from "./TablePopup";
 import DatabaseInformation from "./DatabaseInformation";
 import {NotificationManager} from "react-notifications";
 import Requests from "./Requests";
@@ -21,6 +21,7 @@ class MainPage extends Component {
             queryResults: [],
             showTableSection: false,
             showTable: false,
+            database: "",
         };
     }
 
@@ -57,7 +58,7 @@ class MainPage extends Component {
 
     clickGenerate = async (query) => {
         const Data = {
-            database: 'iris',
+            database: this.state.database,
             query: query
         };
         this.setState({initialQuery: query});
@@ -101,7 +102,7 @@ class MainPage extends Component {
 
     clickExecute = async (query) => {
         const Data = {
-            database: 'iris',
+            database: this.state.database,
             query: query
         };
 
@@ -119,6 +120,11 @@ class MainPage extends Component {
 
     };
 
+    databaseIsChanged = (database) => {
+        console.log(database);
+        this.setState({database: database});
+
+    }
     expandButtonClicked = () => {
         this.toggleTablePopup()
     }
@@ -128,7 +134,7 @@ class MainPage extends Component {
             <div>
                 <div className="main">
                     <div className="elementsCol">
-                        <DatabaseInformation/>
+                        <DatabaseInformation databaseIsChanged={this.databaseIsChanged}/>
                     </div>
                     <div className="elementsCol">
                         <WriteQuery clickGenerate={this.clickGenerate} clickExecute={this.clickExecute}/>
@@ -160,8 +166,8 @@ class MainPage extends Component {
 
                 </div>
                 {this.state.showTable ?
-                    <Table columns={this.state.columns} results={this.state.queryResults}
-                           closePopup={this.toggleTablePopup}/>
+                    <TablePopup columns={this.state.columns} results={this.state.queryResults}
+                                closePopup={this.toggleTablePopup}/>
                     : null
                 }
             </div>

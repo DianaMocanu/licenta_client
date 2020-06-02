@@ -1,5 +1,6 @@
 import React from 'react';
 import "../css/WriteQuery.css"
+import {Header} from "semantic-ui-react";
 
 class WriteQuery extends React.Component{
     constructor(props) {

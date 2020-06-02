@@ -1,27 +1,28 @@
 import React from "react";
 import '../css/table.css'
+import {Table} from "semantic-ui-react";
 
-function Table(props) {
+function TablePopup(props) {
 
     const getTableColumns = () => {
         return props.columns.map((col, index) => {
             return (
-                <th className="columns" key={index}>{col}</th>
+                <Table.HeaderCell key={index}>{col}</Table.HeaderCell>
             );
         })
     };
     const getTableBody = () => {
         return props.results.map((col, index) => {
             return (
-                <tr className="trClass" key={index}>
+                <Table.Row key={index}>
                     {
                         col.map((item, indexV) => {
                             return (
-                                <td key={index.toString() + indexV.toString()}>{item}</td>
+                                <Table.Cell key={index.toString() + indexV.toString()}>{item}</Table.Cell>
                             );
                         })
                     }
-                </tr>
+                </Table.Row>
             );
         })
     };
@@ -35,17 +36,20 @@ function Table(props) {
                 onClick={props.closePopup}
             />
             {/*<div id="close_btn"><Button small circular icon="close" onClick={props.closePopup}/></div>*/}
-            <table className="tableMain">
-                <tbody>
-                <tr className="trClass">
+            <div id="scroolable">
+            <Table celled>
+                <Table.Header>
+                    <Table.Row>
                     {getTableColumns()}
-                </tr>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
                 {getTableBody()}
-                </tbody>
-            </table>
-
+                </Table.Body>
+            </Table>
+            </div>
         </div>
     );
 }
 
-export default Table
+export default TablePopup

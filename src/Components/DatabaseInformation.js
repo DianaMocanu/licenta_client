@@ -7,7 +7,7 @@ import Requests from "./Requests";
 import {Checkbox, Container, Divider, Header} from "semantic-ui-react";
 
 
-function DatabaseInformation() {
+function DatabaseInformation(props) {
 
     const [existTables, setExistTablesState] = useState(false);
     const [databaseName, setDatabase] = useState("");
@@ -30,6 +30,7 @@ function DatabaseInformation() {
     };
 
     const databaseIsSelected = async (database) => {
+        props.databaseIsChanged(database);
         if (database.length > 0) {
             setDatabase(database);
             const Data = {
@@ -89,7 +90,7 @@ function DatabaseInformation() {
                 <Divider/>
                 <FormLabel>
                     <span className="labelName">Databases:</span>
-                    <DropdownClearable onSelected={databaseIsSelected} options={[{key: 1, text: "iris", value: 1}]}/>
+                    <DropdownClearable onSelected={databaseIsSelected} options={[{key: 1, text: "iris", value: 1},{key: 2, text: "htru", value: 2}]}/>
                 </FormLabel>
                 <Divider/>
                 <FormLabel>
