@@ -7,10 +7,10 @@ import Table from "./Table";
 import DatabaseInformation from "./DatabaseInformation";
 import {NotificationManager} from "react-notifications";
 import Requests from "./Requests";
+import {Button, Container, Divider, Header} from "semantic-ui-react";
 
 
-
-class MainPage extends Component{
+class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,18 +19,19 @@ class MainPage extends Component{
             results: [],
             columns: [],
             queryResults: [],
-            showTable: !false,
+            showTableSection: false,
+            showTable: false,
         };
     }
 
-    getQueryFirstPart = query =>{
+    getQueryFirstPart = query => {
         let whereIndex = query.toLowerCase().indexOf("where");
         return query.slice(0, whereIndex + 5)
     }
 
-    constructDisjunctionCondition = resultIds =>{
+    constructDisjunctionCondition = resultIds => {
         console.log(resultIds);
-        if(resultIds.length === 0){
+        if (resultIds.length === 0) {
             let whereIndex = this.state.initialQuery.toLowerCase().indexOf("where");
             const newQuery = this.getQueryFirstPart(this.state.initialQuery).slice(0, whereIndex);
             this.setState({newQuery: newQuery});
@@ -38,9 +39,9 @@ class MainPage extends Component{
         }
 
         let newCond = "";
-        resultIds.forEach((id)=>{
+        resultIds.forEach((id) => {
             let idInt = parseInt(id);
-            newCond +=  "( " +this.state.results[idInt].value + ") or ";
+            newCond += "( " + this.state.results[idInt].value + ") or ";
         });
 
         const finalCond = newCond.slice(0, newCond.length - 3);
@@ -48,26 +49,26 @@ class MainPage extends Component{
         this.setState({newQuery: newQuery});
     };
 
-    constructNewQuery = (query, condition)=>{
+    constructNewQuery = (query, condition) => {
 
         const first_part = this.getQueryFirstPart(query);
         return first_part + " " + condition
     };
 
     clickGenerate = async (query) => {
-        const Data ={
+        const Data = {
             database: 'iris',
             query: query
         };
         this.setState({initialQuery: query});
         let result = await Requests.create('generate', Data)
 
-        if(result.ok){
+        if (result.ok) {
             let data_result = result.data;
             let newQuery = this.constructNewQuery(query, data_result[0])
             let result_cond = [];
-            data_result.forEach((row, index)=> {
-                if(index === 0)
+            data_result.forEach((row, index) => {
+                if (index === 0)
                     result_cond[index] = {
                         checked: true,
                         value: row,
@@ -81,60 +82,89 @@ class MainPage extends Component{
             });
             this.setState({newQuery: newQuery, results: result_cond});
 
-        }
-        else{
-            NotificationManager.error(result.data,"", 4000);
+        } else {
+            NotificationManager.error(result.data, "", 4000);
         }
 
     };
 
-    togglePopup = () => {
+    toggleTableSection = () => {
+        this.setState(prevState => ({
+            showTableSection: !prevState.showTableSection
+        }));
+    };
+    toggleTablePopup = () => {
         this.setState(prevState => ({
             showTable: !prevState.showTable
         }));
     };
 
     clickExecute = async (query) => {
-        const Data ={
+        const Data = {
             database: 'iris',
             query: query
         };
 
         let result = await Requests.create(`execute`, Data);
-        if(result.ok){
+        if (result.ok) {
             let data_result = result.data;
             const columns = data_result.columns;
             const results = data_result.results;
             this.setState({columns: columns, queryResults: results})
-        }
-        else{
-            NotificationManager.error(result.data,"", 4000);
+            if (!this.state.showTableSection)
+                this.toggleTableSection();
+        } else {
+            NotificationManager.error(result.data, "", 4000);
         }
 
     };
 
+    expandButtonClicked = () => {
+        this.toggleTablePopup()
+    }
+
     render() {
-        return(
-            <div className="main">
-                <div className="elementsCol">
-                   <DatabaseInformation/>
-                    <div className="showCategoryDiv">Statistica aici</div>
-                </div>
-                <div className="elementsCol">
-                    <WriteQuery clickGenerate={this.clickGenerate} clickExecute={this.clickExecute}/>
-                    <Result result={ this.state.newQuery}/>
-                </div>
-                <div className="elementsCol">
+        return (
+            <div>
+                <div className="main">
+                    <div className="elementsCol">
+                        <DatabaseInformation/>
+                    </div>
+                    <div className="elementsCol">
+                        <WriteQuery clickGenerate={this.clickGenerate} clickExecute={this.clickExecute}/>
+                        <Result result={this.state.newQuery}/>
+                    </div>
+                    <div className="elementsCol">
+                        {this.state.results.length ?
+                            <div>
+                                <ListResult results={this.state.results}
+                                            reconstructCondition={this.constructDisjunctionCondition}/>
+                            </div>
+                            : null
+                        }
+                        {this.state.showTableSection ?
+                            <div className="listDiv">
+                                <Container>
+                                    <div id="openTable"><Header as="h2">Open Table</Header>
+                                        <Button className="color1" onClick={this.expandButtonClicked} circular icon='external alternate'/>
+                                    </div>
+                                    <div className="numberTuples"> Number of resulted
+                                        tuples: {this.state.queryResults.length}</div>
+                                </Container>
+                                <Divider/>
+                            </div>
+                            : null
+                        }
 
-                    <ListResult results={this.state.results} reconstructCondition={this.constructDisjunctionCondition}/>
-                    {this.state.showTable ? (
-                            <Table columns={this.state.columns} results={this.state.queryResults} closePopup={this.togglePopup}/>)
-                        :null
-                    }
-                </div>
+                    </div>
 
+                </div>
+                {this.state.showTable ?
+                    <Table columns={this.state.columns} results={this.state.queryResults}
+                           closePopup={this.toggleTablePopup}/>
+                    : null
+                }
             </div>
-
         );
     }
 

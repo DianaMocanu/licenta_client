@@ -1,22 +1,22 @@
 import React from "react";
 import '../css/table.css'
 
-function Table(props){
+function Table(props) {
 
-    const getTableColumns = () =>{
+    const getTableColumns = () => {
         return props.columns.map((col, index) => {
-            return(
+            return (
                 <th className="columns" key={index}>{col}</th>
             );
         })
     };
-    const getTableBody = () =>{
-        return props.results.map((col, index)=>{
-            return(
-                <tr key={index}>
+    const getTableBody = () => {
+        return props.results.map((col, index) => {
+            return (
+                <tr className="trClass" key={index}>
                     {
                         col.map((item, indexV) => {
-                            return(
+                            return (
                                 <td key={index.toString() + indexV.toString()}>{item}</td>
                             );
                         })
@@ -26,11 +26,18 @@ function Table(props){
         })
     };
 
-    return(
+    return (
         <div className="tableDiv">
+            <img
+                id="close_btn"
+                src={require("../images/close_btn.png")}
+                alt="close button"
+                onClick={props.closePopup}
+            />
+            {/*<div id="close_btn"><Button small circular icon="close" onClick={props.closePopup}/></div>*/}
             <table className="tableMain">
                 <tbody>
-                <tr>
+                <tr className="trClass">
                     {getTableColumns()}
                 </tr>
                 {getTableBody()}

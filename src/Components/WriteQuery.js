@@ -1,5 +1,6 @@
 import React from 'react';
 import "../css/WriteQuery.css"
+
 class WriteQuery extends React.Component{
     constructor(props) {
         super(props);
@@ -10,7 +11,7 @@ class WriteQuery extends React.Component{
     }
 
     handleChange = (event) =>{
-        const regex = RegExp('^(?=.*SELECT.*FROM)(?!.*(?:CREATE|DROP|UPDATE|INSERT|ALTER|DELETE|ATTACH|DETACH)).*$\n');
+        // const regex = RegExp('^(?=.*SELECT.*FROM)(?!.*(?:CREATE|DROP|UPDATE|INSERT|ALTER|DELETE|ATTACH|DETACH)).*$\n');
         let query = event.target.value;
         this.setState({value: query});
     };
@@ -27,8 +28,12 @@ class WriteQuery extends React.Component{
         return (
             <div className="writeQueryDiv" >
                 <textarea className="inputQuery" value={this.state.value} onChange={this.handleChange}/>
-                <button className="appButtons" onClick={this.handleClick}>Generate</button>
-                <button className="appButtons" onClick={this.handleExecClick}>Run Query</button>
+                <div>
+                    <button className="ui color1 medium button" onClick={this.handleClick}>Generate</button>
+                    <button className="ui color1 medium button" onClick={this.handleExecClick}>Execute</button>
+                {/*<button className="appButtons" onClick={this.handleClick}>Generate</button>*/}
+                {/*<button className="appButtons" onClick={this.handleExecClick}>Run Query</button>*/}
+                </div>
             </div>
         );
     }

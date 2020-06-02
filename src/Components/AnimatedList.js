@@ -14,8 +14,9 @@ function AnimatedList(props) {
             );
         });
     }
+    // animated verticalAlign='middle'
     return(
-        <List animated verticalAlign='middle'>
+        <List divided verticalAlign='middle' animated>
             {
                 mapColumns()
             }

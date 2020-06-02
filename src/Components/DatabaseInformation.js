@@ -4,9 +4,10 @@ import DropdownClearable from "./DropdownClearable";
 import {NotificationContainer, NotificationManager} from "react-notifications";
 import AnimatedList from "./AnimatedList";
 import Requests from "./Requests";
+import {Checkbox, Container, Divider, Header} from "semantic-ui-react";
 
 
-function DatabaseInformation(props) {
+function DatabaseInformation() {
 
     const [existTables, setExistTablesState] = useState(false);
     const [databaseName, setDatabase] = useState("");
@@ -68,25 +69,54 @@ function DatabaseInformation(props) {
         }
     }
 
+    const negationIsSelected = (negation) => {
+        NotificationManager.info('This feature is not implemented yet', "", 3000);
+    }
+
     return (
         <div className="showCategoryDiv">
-            <FormLabel>
-                Databases:
-                <DropdownClearable onSelected={databaseIsSelected} options={[{key: 1, text: "iris", value: 1}]}/>
-            </FormLabel>
-            <FormLabel>
-                Tables:
-                {existTables ?
-                    <DropdownClearable onSelected={tableIsSelected} options={tables}/>
-                    : null}
-            </FormLabel>
-            <NotificationContainer/>
-            <FormLabel>
-                Columns:
-                {columnsExist ? <AnimatedList columns={columns}/>
-                    : null
-                }
-            </FormLabel>
+            <Container textAlign='left' fluid>
+                <Header as="h2">Generate Selections</Header>
+                <FormLabel>
+                    <span className="labelName">Negations:</span>
+                    <DropdownClearable onSelected={negationIsSelected}
+                                       options={[{key: 1, text: "negation1", value: 1}, {
+                                           key: 2,
+                                           text: "negation2",
+                                           value: 2
+                                       }]}/>
+                </FormLabel>
+                <Divider/>
+                <FormLabel>
+                    <span className="labelName">Databases:</span>
+                    <DropdownClearable onSelected={databaseIsSelected} options={[{key: 1, text: "iris", value: 1}]}/>
+                </FormLabel>
+                <Divider/>
+                <FormLabel>
+                    <Checkbox id={1}/> Generate Chart
+                </FormLabel>
+            </Container>
+
+            <br/>
+            <Container textAlign='left' fluid>
+                <Header as="h2">Explore a database</Header>
+                <Divider/>
+                <FormLabel>
+                    <span className="labelName">Tables:</span>
+                    {existTables ?
+                        <DropdownClearable onSelected={tableIsSelected} options={tables}/>
+                        : null}
+                </FormLabel>
+                <Divider/>
+                <NotificationContainer/>
+                <FormLabel>
+                    <span className="labelName">Columns:</span>
+                    {columnsExist ? <AnimatedList columns={columns}/>
+                        : null
+                    }
+                </FormLabel>
+                <Divider/>
+            </Container>
         </div>
     );
 

@@ -1,24 +1,12 @@
-.listDiv{
-
-    background: white;
-    height: 45vh;
-    border: 3px solid var(--purpleAccentColor);
-    display: flex;
-    /*font-size: 30px;*/
-    /*width: 93%;*/
-    margin-top: 4vh;
-    /*align-self: flex-end;*/
-    flex-direction: column;
-    /*align-self: flex-end;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
-}
+/*.listDiv{*/
+/*    display: flex;*/
+/*    margin-top: 4vh;*/
+/*    margin-bottom: 4vh;*/
+/*    flex-direction: column;*/
+/*}*/
 .conditionLiClass{
-    /*background: var(--purpleAccentColor);*/
     margin: 7px 5px 5px;
     border-radius: 3px;
-    font-size: 17px;
-    /*color: #FFFFFF;*/
 
 }
 #ulResult{

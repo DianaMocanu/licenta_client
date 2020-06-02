@@ -1,12 +1,13 @@
 import React from 'react';
 import "../css/list.css"
-import {Checkbox, List} from 'semantic-ui-react'
-class ListResult extends React.Component{
+import {Checkbox, Container, Divider, Header, List} from 'semantic-ui-react'
+
+class ListResult extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            areChecked : {},
+        this.state = {
+            areChecked: {},
             elements: [],
         }
     }
@@ -40,17 +41,17 @@ class ListResult extends React.Component{
     //     }
     // }
 
-    filterChecked = () =>{
+    filterChecked = () => {
         Object.filter = (obj, predicate) =>
             Object.keys(obj)
-                .filter( key => predicate(obj[key]) )
-                .reduce( (res, key) => (res[key] = obj[key], res), {} );
+                .filter(key => predicate(obj[key]))
+                .reduce((res, key) => (res[key] = obj[key], res), {});
         let checkboxes = this.state.areChecked;
         const filtered = Object.filter(checkboxes, score => score === true);
         this.props.reconstructCondition(Object.keys(filtered))
     }
 
-    checkCheckBox = (event, ch) =>{
+    checkCheckBox = (event, ch) => {
         const isChecked = ch.checked
         const id = event.target.id;
         // let newState = Object.assign({}, this.state);
@@ -66,10 +67,9 @@ class ListResult extends React.Component{
         }, this.filterChecked);
 
 
-
     }
 
-    modifyChecked = (id, value)=>{
+    modifyChecked = (id, value) => {
         this.setState({
             areChecked: {
                 ...this.state.areChecked,
@@ -89,28 +89,31 @@ class ListResult extends React.Component{
     //      );
     //   });
     // };
-    getRowCondition = () =>{
-        return this.props.results.map(({checked, value}, index)=>{
-            return(
-                <List.Item key = {index} >
+    getRowCondition = () => {
+        return this.props.results.map(({checked, value}, index) => {
+            return (
+                <List.Item key={index}>
                     {/*<FormControlLabel control={<Checkbox id={index.toString()} onChange={this.checkCheckBox} value={row}/>} label={row.toString()}/>*/}
                     <List.Content>
-                        <Checkbox className="listFont" label={ value} id={index} defaultChecked={checked} onChange={this.checkCheckBox} />
+                        <Checkbox className="listFont" label={value} id={index} defaultChecked={checked}
+                                  onChange={this.checkCheckBox}/>
                         {/*<List.Header> {row.toString()}</List.Header>*/}
                     </List.Content>
                 </List.Item>
             );
         });
     };
+
     render() {
-        return(
+        return (
             <div className="listDiv">
-                {/*<ul id="ulResult">{*/}
-                {/*    this.getRowCondition()}*/}
-                {/*</ul>*/}
-                <List celled size='big'>
-                    {this.getRowCondition()}
-                </List>
+                <Container>
+                    <Header as="h2">Choose Query Condition</Header>
+                    <List divided relaxed size='big'>
+                        {this.getRowCondition()}
+                    </List>
+                    <Divider/>
+                </Container>
             </div>
         );
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import "../css/result.css"
 import { NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import {Button} from "semantic-ui-react";
 
 function Result(props){
 
@@ -11,7 +12,7 @@ function Result(props){
     return (
         <div className="resultDiv">
             <textarea className="inputQuery" id="result" value={props.result} onChange={null}/>
-            <button className="appButtons" onClick={clickRunQuery}>Run Query</button>
+            <Button className="color1" size="medium" onClick={clickRunQuery}>Execute</Button>
         </div>
     );
 }

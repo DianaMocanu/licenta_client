@@ -43,23 +43,41 @@
     background-color:#FFFFFF;
     border-color: var(--purpleAccentColor);
 }
-
+.button.color1{
+    background: var(--purpleAccentColor);
+    color: #fff;
+}
 .showCategoryDiv{
-    height: 45vh;
-    border: 3px solid var(--purpleAccentColor);
+    height: 100vh;
+    /*border: 3px solid var(--purpleAccentColor);*/
     display: flex;
     margin-top: 4vh;
     flex-direction: column;
-    background: white;
+    /*background: white;*/
 }
-
-
+.numberTuples{
+    font-size: 20px;
+}
+.listDiv{
+    display: flex;
+    margin-top: 4vh;
+    flex-direction: column;
+}
+#openTable{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.labelName{
+    margin-right: 5px;
+}
 .inputQuery{
     font-family: var(--writeStyle);
     height: 180px;
     width: 400px;
     margin: 40px;
     font-size: 18px;
-    border: 0.2em solid var(--purpleAccentColor);
+    border: 2px solid rgba(34,36,38,.15);
     background: #FFFFFF;
 }
