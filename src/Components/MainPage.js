@@ -7,7 +7,8 @@ import TablePopup from "./TablePopup";
 import DatabaseInformation from "./DatabaseInformation";
 import {NotificationManager} from "react-notifications";
 import Requests from "./Requests";
-import {Button, Container, Divider, Header} from "semantic-ui-react";
+import {Button, Container, Divider, Header, Loader} from "semantic-ui-react";
+import PieChart from "./Charts";
 
 
 class MainPage extends Component {
@@ -22,7 +23,19 @@ class MainPage extends Component {
             showTableSection: false,
             showTable: false,
             database: "",
+            negationKey: 1,
+            loader: false,
+            showChart: false,
+            chartData: [],
+            chartIsChecked: false,
         };
+    }
+
+    negationIsSelected = negationKey =>{
+        if(negationKey === 0)
+            this.setState({negationKey: 1})
+        else
+            this.setState({negationKey: negationKey})
     }
 
     getQueryFirstPart = query => {
@@ -30,8 +43,10 @@ class MainPage extends Component {
         return query.slice(0, whereIndex + 5)
     }
 
+    chartCheckboxChange = checked =>{
+        this.setState({chartIsChecked: checked})
+    }
     constructDisjunctionCondition = resultIds => {
-        console.log(resultIds);
         if (resultIds.length === 0) {
             let whereIndex = this.state.initialQuery.toLowerCase().indexOf("where");
             const newQuery = this.getQueryFirstPart(this.state.initialQuery).slice(0, whereIndex);
@@ -59,13 +74,15 @@ class MainPage extends Component {
     clickGenerate = async (query) => {
         const Data = {
             database: this.state.database,
-            query: query
+            query: query,
+            negation: this.state.negationKey,
         };
         this.setState({initialQuery: query});
+        this.toggleLoaderSection();
         let result = await Requests.create('generate', Data)
-
         if (result.ok) {
-            let data_result = result.data;
+            this.toggleLoaderSection();
+            let data_result = result.data.results;
             let newQuery = this.constructNewQuery(query, data_result[0])
             let result_cond = [];
             data_result.forEach((row, index) => {
@@ -83,10 +100,37 @@ class MainPage extends Component {
             });
             this.setState({newQuery: newQuery, results: result_cond});
 
+            if(this.state.chartIsChecked) {
+                const Data = {
+                    database: this.state.database,
+                    query: newQuery
+                };
+                let newResult = await Requests.create(`execute`, Data);
+                if (newResult.ok) {
+                    let oldSize = result.data.oldSize;
+                    let difference = Math.abs(oldSize - newResult.data.results.length)
+                    this.setState({chartData: [difference, oldSize]})
+                    this.toggleChartSection()
+                }
+            }
+
         } else {
+            this.toggleLoaderSection();
             NotificationManager.error(result.data, "", 4000);
         }
 
+    };
+
+    toggleLoaderSection = () => {
+        this.setState(prevState => ({
+            loader: !prevState.loader
+        }));
+    };
+
+    toggleChartSection = () => {
+        this.setState(prevState => ({
+            showChart: !prevState.showChart
+        }));
     };
 
     toggleTableSection = () => {
@@ -94,11 +138,13 @@ class MainPage extends Component {
             showTableSection: !prevState.showTableSection
         }));
     };
+
     toggleTablePopup = () => {
         this.setState(prevState => ({
             showTable: !prevState.showTable
         }));
     };
+
 
     clickExecute = async (query) => {
         const Data = {
@@ -134,11 +180,12 @@ class MainPage extends Component {
             <div>
                 <div className="main">
                     <div className="elementsCol">
-                        <DatabaseInformation databaseIsChanged={this.databaseIsChanged}/>
+                        <DatabaseInformation chartCheckboxChange={this.chartCheckboxChange} databaseIsChanged={this.databaseIsChanged} negationIsSelected={this.negationIsSelected}/>
                     </div>
+                    {this.state.loader ? <Loader active={true}/>: null}
                     <div className="elementsCol">
                         <WriteQuery clickGenerate={this.clickGenerate} clickExecute={this.clickExecute}/>
-                        <Result result={this.state.newQuery}/>
+                        <Result clickExecute = {this.clickExecute} result={this.state.newQuery}/>
                     </div>
                     <div className="elementsCol">
                         {this.state.results.length ?
@@ -160,6 +207,8 @@ class MainPage extends Component {
                                 <Divider/>
                             </div>
                             : null
+                        }
+                        {this.state.showChart? <PieChart data={this.state.chartData}/> : null
                         }
 
                     </div>

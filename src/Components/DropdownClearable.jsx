@@ -3,9 +3,10 @@ import { Dropdown } from 'semantic-ui-react'
 
     function DropdownClearable (props) {
 
-        const elementSelected = (event) => {
+        const elementSelected = (event, data) => {
             const value = event.target.textContent;
-            props.onSelected(value)
+            const key = data.value;
+            props.onSelected(value, key)
         };
 
         return(

@@ -1,17 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "../css/result.css"
-import { NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import {Button, Header} from "semantic-ui-react";
 
 function Result(props){
+    const [query, setQuery] = useState('');
 
     const clickRunQuery = () => {
-        NotificationManager.info('This feature is not implemented yet',"", 3000);
+        props.clickExecute(props.result)
+    };
+    const handleChange = (event) =>{
+        let newQuery = event.target.value;
+       setQuery(newQuery);
     };
     return (
         <div className="resultDiv">
-            <textarea className="inputQuery" id="result" value={props.result} onChange={null}/>
+            <textarea className="inputQuery" id="result" value={props.result} onChange={handleChange}/>
             <Button className="color1" size="medium" onClick={clickRunQuery}>Execute</Button>
         </div>
     );

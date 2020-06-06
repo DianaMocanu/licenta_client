@@ -29,7 +29,7 @@ function DatabaseInformation(props) {
 
     };
 
-    const databaseIsSelected = async (database) => {
+    const databaseIsSelected = async (database, key) => {
         props.databaseIsChanged(database);
         if (database.length > 0) {
             setDatabase(database);
@@ -51,7 +51,7 @@ function DatabaseInformation(props) {
         }
     };
 
-    const tableIsSelected = async (table) => {
+    const tableIsSelected = async (table, key) => {
         if (table.length > 0) {
             const Data = {
                 table: table,
@@ -70,10 +70,16 @@ function DatabaseInformation(props) {
         }
     }
 
-    const negationIsSelected = (negation) => {
-        NotificationManager.info('This feature is not implemented yet', "", 3000);
+    const negationIsSelected = (negation, key) => {
+        if(typeof key === "string")
+            key = 0
+            props.negationIsSelected(key)
     }
+    const checkCheckBox = (event, ch) => {
+        const isChecked = ch.checked;
+        props.chartCheckboxChange(isChecked)
 
+    }
     return (
         <div className="showCategoryDiv">
             <Container textAlign='left' fluid>
@@ -94,7 +100,7 @@ function DatabaseInformation(props) {
                 </FormLabel>
                 <Divider/>
                 <FormLabel>
-                    <Checkbox id={1}/> Generate Chart
+                    <Checkbox onChange={checkCheckBox}/> Generate Chart
                 </FormLabel>
             </Container>
 
