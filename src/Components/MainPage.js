@@ -31,7 +31,7 @@ class MainPage extends Component {
             chartIsChecked: false,
             randomRate: 15,
             posIds: [],
-            // negIds: [],
+
         };
     }
 
@@ -55,9 +55,6 @@ class MainPage extends Component {
             let whereIndex = this.state.initialQuery.toLowerCase().indexOf("where");
             const newQuery = this.getQueryFirstPart(this.state.initialQuery).slice(0, whereIndex);
             this.setState({newQuery: newQuery}, this.updateChartExec);
-            // if(this.state.chartIsChecked) {
-            //      this.updateChartExec()
-            // }
             return;
         }
 
@@ -70,9 +67,6 @@ class MainPage extends Component {
         const finalCond = newCond.slice(0, newCond.length - 3);
         const newQuery = this.getQueryFirstPart(this.state.initialQuery) + " " + finalCond;
         this.setState({newQuery: newQuery}, this.updateChartExec);
-        // if(this.state.chartIsChecked) {
-        //      this.updateChartExec()
-        // }
     };
 
     constructNewQuery = (query, condition) => {
@@ -83,7 +77,6 @@ class MainPage extends Component {
 
     clickGenerate = async (query) => {
         this.toggleLoaderSection();
-        // this.toggleChartSection();
 
         const Data = {
             database: this.state.database,
@@ -115,13 +108,11 @@ class MainPage extends Component {
 
             if(this.state.chartIsChecked) {
                     this.setState({posIds: result.data.pos_ids})
-                    // this.setState({negIds: result.data.neg_ids})
                await this.updateChartExec()
             }
             this.toggleChartSection(this.state.chartIsChecked)
         } else {
             this.toggleLoaderSection();
-            // this.toggleChartSection(this.state.chartIsChecked)
             NotificationManager.error(result.data, "", 4000);
         }
 
@@ -129,14 +120,10 @@ class MainPage extends Component {
 
     checkNegPosEx = (tuples) => {
         let oldInNew = 0;
-        // let newInNeg = 0;
         tuples.forEach(idTuple =>{
             this.state.posIds.forEach(posId => {
                 if(idTuple === posId) oldInNew++;
             });
-            // this.state.negIds.forEach(negId => {
-            //     if(idTuple === negId) newInNeg++;
-            // });
         });
         const notOldInNew = this.state.posIds.length - oldInNew;
         const completeNew = tuples.length - oldInNew;
@@ -209,7 +196,6 @@ class MainPage extends Component {
     }
     isColumnSelected = (column) =>{
         console.log(column)
-        // this.setState(prevState=> ({newQuery: prevState.newQuery+=` ${column},`}))
     }
 
     rateIsSelected = (rate) =>{
