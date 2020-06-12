@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "../css/result.css"
 import 'react-notifications/lib/notifications.css';
-import {Button, Header} from "semantic-ui-react";
+import {Button} from "semantic-ui-react";
 
 function Result(props){
     const [query, setQuery] = useState('');
@@ -16,7 +16,7 @@ function Result(props){
     };
     return (
         <div className="resultDiv">
-            <textarea className="inputQuery" id="result" value={props.result} onChange={handleChange}/>
+            <textarea placeholder='generated query' className="inputQuery" id="result" value={props.result} onChange={handleChange}/>
             <Button className="color1" size="medium" onClick={clickRunQuery}>Execute</Button>
         </div>
     );

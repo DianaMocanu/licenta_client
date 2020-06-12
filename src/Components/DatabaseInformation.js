@@ -111,7 +111,7 @@ function DatabaseInformation(props) {
                     <Container>
                     <FormLabel>
                         <span className="labelName">Rate of new tuples:</span>
-                        <NumberInput  minValue={1} maxValue={100} value={value} maxLength={3} onChange={changeValue}/>
+                        <NumberInput  minValue={1} maxValue={100} value={value.toString()} maxLength={3} onChange={changeValue}/>
                     </FormLabel>
                         <Divider/>
                     </Container>
@@ -119,7 +119,8 @@ function DatabaseInformation(props) {
                 }
                 <FormLabel>
                     <span className="labelName">Databases:</span>
-                    <DropdownClearable onSelected={databaseIsSelected} options={[{key: 1, text: "iris", value: 1},{key: 2, text: "htru", value: 2}, {key: 3, text: "particles", value: 3}]}/>
+                    <DropdownClearable onSelected={databaseIsSelected} options={[{key: 1, text: "iris", value: 1},
+                        {key: 2, text: "htru", value: 2}, {key: 3, text: "air", value: 3}]}/>
                 </FormLabel>
                 <Divider/>
                 <FormLabel>

@@ -14,23 +14,13 @@ function PieChart(props){
                     '#00A6B4',
                     '#BB4430',
                     '#6800B4',
-                    '#F3DFA2',
-                    '#087E8B',
-                    '#C884A6',
-                    '#14BDEB',
-                    '#A663CC'
                 ],
                 hoverBackgroundColor: [
                     '#003350',
                     '#a0311f',
                     '#35014F',
-                    '#F3DFA2',
-                    '#087E8B',
-                    '#C884A6',
-                    '#14BDEB',
-                    '#A663CC'
                 ],
-                data: props.data
+                data: props.data || null
             }
         ]
     }
@@ -49,7 +39,6 @@ function PieChart(props){
             <Divider/>
         </div>
     );
-
 }
 
 export default PieChart

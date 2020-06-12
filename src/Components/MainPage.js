@@ -50,6 +50,7 @@ class MainPage extends Component {
     chartCheckboxChange = checked =>{
         this.setState({chartIsChecked: checked})
     }
+
     constructDisjunctionCondition = async resultIds => {
         if (resultIds.length === 0) {
             let whereIndex = this.state.initialQuery.toLowerCase().indexOf("where");
@@ -58,10 +59,12 @@ class MainPage extends Component {
             return;
         }
 
+        console.log(resultIds)
         let newCond = "";
         resultIds.forEach((id) => {
             let idInt = parseInt(id);
-            newCond += "( " + this.state.results[idInt].value + ") or ";
+            if( typeof idInt === "number")
+                newCond += "( " + this.state.results[idInt].value + ") or ";
         });
 
         const finalCond = newCond.slice(0, newCond.length - 3);
@@ -77,7 +80,6 @@ class MainPage extends Component {
 
     clickGenerate = async (query) => {
         this.toggleLoaderSection();
-
         const Data = {
             database: this.state.database,
             query: query,
@@ -139,11 +141,11 @@ class MainPage extends Component {
             let newResult = await Requests.create(`executeId`, Data);
             if (newResult.ok) {
                 const calculations = this.checkNegPosEx(newResult.data.results)
-                console.log(calculations)
                 this.setState({chartData: calculations})
             }
         }
     }
+
     toggleLoaderSection = () => {
         this.setState(prevState => ({
             loader: !prevState.loader
@@ -191,9 +193,11 @@ class MainPage extends Component {
     databaseIsChanged = (database) => {
         this.setState({database: database});
     }
+
     expandButtonClicked = () => {
         this.toggleTablePopup()
     }
+
     isColumnSelected = (column) =>{
         console.log(column)
     }
@@ -201,6 +205,7 @@ class MainPage extends Component {
     rateIsSelected = (rate) =>{
         this.setState({randomRate: Number(rate)})
 }
+
     render() {
         return (
             <div>

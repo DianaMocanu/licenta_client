@@ -35,7 +35,7 @@ function TablePopup(props) {
                 alt="close button"
                 onClick={props.closePopup}
             />
-            {/*<div id="close_btn"><Button small circular icon="close" onClick={props.closePopup}/></div>*/}
+
             <div id="scroolable">
             <Table celled>
                 <Table.Header>

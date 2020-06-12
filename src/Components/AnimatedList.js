@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Icon, List, Popup} from 'semantic-ui-react'
+import {List, Popup} from 'semantic-ui-react'
 import Requests from "./Requests";
 
 function AnimatedList(props) {
@@ -7,7 +7,6 @@ function AnimatedList(props) {
     const [maxMin, setMaxMin] = useState("");
     let handle = (event) =>{
         event.stopPropagation();
-        // event.preventDefault();
         if( event.target.className === 'header listColumnItem' ) {
             event.stopPropagation();
             props.columnSelected(event.target.textContent)
@@ -26,7 +25,6 @@ function AnimatedList(props) {
 
     }
 
-    // document.addEventListener( "dblclick", handle, false);
 
     const mapColumns = () =>{
         return props.columns.map((column, index)=> {
@@ -39,7 +37,6 @@ function AnimatedList(props) {
                         content={maxMin}
                         mouseEnterDelay={600}
                     />
-                    {/*<List.Icon link={true} name='info' verticalAlign='middle' size='large' onClick={iconClicked.bind(this, column, index)}/>*/}
                     <List.Content>
                          <List.Header onDoubleClick={handle} className='listColumnItem'>{column}</List.Header>
                     </List.Content>
@@ -47,7 +44,6 @@ function AnimatedList(props) {
             );
         });
     }
-    // animated verticalAlign='middle'
     return(
         <List divided verticalAlign='middle' animated>
             {
