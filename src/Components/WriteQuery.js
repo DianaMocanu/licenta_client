@@ -6,7 +6,7 @@ class WriteQuery extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            value: 'select sepal_length, sepal_width, petal_length, petal_width from iris_data where petal_length < 4.2 and petal_width > 1.2'
+            value: 'select * from iris_data where petal_length < 4.2 and petal_width > 1.2'
         };
 
     }

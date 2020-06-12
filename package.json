@@ -19,7 +19,8 @@
     "react-notifications": "^1.6.0",
     "react-scripts": "3.4.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.2"
+    "semantic-ui-react": "^0.88.2",
+    "semantic-ui-react-numberinput": "^1.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

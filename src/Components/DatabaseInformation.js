@@ -5,15 +5,18 @@ import {NotificationContainer, NotificationManager} from "react-notifications";
 import AnimatedList from "./AnimatedList";
 import Requests from "./Requests";
 import {Checkbox, Container, Divider, Header} from "semantic-ui-react";
-
+import NumberInput from 'semantic-ui-react-numberinput';
 
 function DatabaseInformation(props) {
 
     const [existTables, setExistTablesState] = useState(false);
     const [databaseName, setDatabase] = useState("");
     const [tables, setTablesState] = useState([]);
+    const [tableName, setTable] = useState("");
     const [columns, setColumnsState] = useState([]);
     const [columnsExist, setColExistState] = useState(false);
+    const [value, setValue] = useState(1);
+    const [negation, setNegation] = useState(0)
 
 
     const constructOptions = (elements) => {
@@ -38,9 +41,10 @@ function DatabaseInformation(props) {
             };
             const response = await Requests.create(`tables`, Data)
             if (response.ok && response.status === 200) {
-                setExistTablesState(true);
                 const options = constructOptions(response.data);
                 setTablesState(options);
+                setExistTablesState(true);
+                setColExistState(false);
             } else {
                 NotificationManager.error(response.data, "", 4000);
             }
@@ -58,6 +62,7 @@ function DatabaseInformation(props) {
                 database: databaseName
             };
 
+            setTable(table)
             const response = await Requests.create(`columns`, Data)
             if (response.ok && response.status === 200) {
                 setColumnsState(response.data);
@@ -72,14 +77,22 @@ function DatabaseInformation(props) {
 
     const negationIsSelected = (negation, key) => {
         if(typeof key === "string")
-            key = 0
-            props.negationIsSelected(key)
+            key = 0;
+        setNegation(key);
+        props.negationIsSelected(key);
     }
     const checkCheckBox = (event, ch) => {
         const isChecked = ch.checked;
         props.chartCheckboxChange(isChecked)
 
     }
+
+    const changeValue = (val) =>{
+        setValue(val)
+        props.rateIsSelected(val);
+    }
+
+    const randomNegationSelected  = negation === 1
     return (
         <div className="showCategoryDiv">
             <Container textAlign='left' fluid>
@@ -87,16 +100,26 @@ function DatabaseInformation(props) {
                 <FormLabel>
                     <span className="labelName">Negations:</span>
                     <DropdownClearable onSelected={negationIsSelected}
-                                       options={[{key: 1, text: "negation1", value: 1}, {
+                                       options={[{key: 1, text: "random negation", value: 1}, {
                                            key: 2,
-                                           text: "negation2",
+                                           text: "greedy negation",
                                            value: 2
                                        }]}/>
                 </FormLabel>
                 <Divider/>
+                {randomNegationSelected ?
+                    <Container>
+                    <FormLabel>
+                        <span className="labelName">Rate of new tuples:</span>
+                        <NumberInput  minValue={1} maxValue={100} value={value} maxLength={3} onChange={changeValue}/>
+                    </FormLabel>
+                        <Divider/>
+                    </Container>
+                    :null
+                }
                 <FormLabel>
                     <span className="labelName">Databases:</span>
-                    <DropdownClearable onSelected={databaseIsSelected} options={[{key: 1, text: "iris", value: 1},{key: 2, text: "htru", value: 2}]}/>
+                    <DropdownClearable onSelected={databaseIsSelected} options={[{key: 1, text: "iris", value: 1},{key: 2, text: "htru", value: 2}, {key: 3, text: "particles", value: 3}]}/>
                 </FormLabel>
                 <Divider/>
                 <FormLabel>
@@ -118,11 +141,12 @@ function DatabaseInformation(props) {
                 <NotificationContainer/>
                 <FormLabel>
                     <span className="labelName">Columns:</span>
-                    {columnsExist ? <AnimatedList columns={columns}/>
+                    {columnsExist ? <AnimatedList table={tableName} database={databaseName} columnSelected={props.isColumnSelected} columns={columns}/>
                         : null
                     }
                 </FormLabel>
                 <Divider/>
+
             </Container>
         </div>
     );

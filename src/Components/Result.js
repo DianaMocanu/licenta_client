@@ -6,6 +6,7 @@ import {Button, Header} from "semantic-ui-react";
 function Result(props){
     const [query, setQuery] = useState('');
 
+
     const clickRunQuery = () => {
         props.clickExecute(props.result)
     };

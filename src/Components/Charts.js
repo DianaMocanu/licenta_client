@@ -6,17 +6,29 @@ import {Divider, Header} from "semantic-ui-react";
 function PieChart(props){
 
     const chartData= {
-        labels : ['New Data', 'Old Data'],
+        labels : ['Old Tuples in new Query', 'Old tuples not in new Query', "Completely New tuples"],
         datasets: [
             {
                 label: 'Rainfall',
                 backgroundColor: [
                     '#00A6B4',
-                    '#6800B4'
+                    '#BB4430',
+                    '#6800B4',
+                    '#F3DFA2',
+                    '#087E8B',
+                    '#C884A6',
+                    '#14BDEB',
+                    '#A663CC'
                 ],
                 hoverBackgroundColor: [
                     '#003350',
-                    '#35014F'
+                    '#a0311f',
+                    '#35014F',
+                    '#F3DFA2',
+                    '#087E8B',
+                    '#C884A6',
+                    '#14BDEB',
+                    '#A663CC'
                 ],
                 data: props.data
             }

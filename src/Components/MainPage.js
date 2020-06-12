@@ -9,6 +9,7 @@ import {NotificationManager} from "react-notifications";
 import Requests from "./Requests";
 import {Button, Container, Divider, Header, Loader} from "semantic-ui-react";
 import PieChart from "./Charts";
+import BarChart from "./DistributionChart";
 
 
 class MainPage extends Component {
@@ -28,6 +29,9 @@ class MainPage extends Component {
             showChart: false,
             chartData: [],
             chartIsChecked: false,
+            randomRate: 15,
+            posIds: [],
+            // negIds: [],
         };
     }
 
@@ -46,11 +50,14 @@ class MainPage extends Component {
     chartCheckboxChange = checked =>{
         this.setState({chartIsChecked: checked})
     }
-    constructDisjunctionCondition = resultIds => {
+    constructDisjunctionCondition = async resultIds => {
         if (resultIds.length === 0) {
             let whereIndex = this.state.initialQuery.toLowerCase().indexOf("where");
             const newQuery = this.getQueryFirstPart(this.state.initialQuery).slice(0, whereIndex);
-            this.setState({newQuery: newQuery});
+            this.setState({newQuery: newQuery}, this.updateChartExec);
+            // if(this.state.chartIsChecked) {
+            //      this.updateChartExec()
+            // }
             return;
         }
 
@@ -62,7 +69,10 @@ class MainPage extends Component {
 
         const finalCond = newCond.slice(0, newCond.length - 3);
         const newQuery = this.getQueryFirstPart(this.state.initialQuery) + " " + finalCond;
-        this.setState({newQuery: newQuery});
+        this.setState({newQuery: newQuery}, this.updateChartExec);
+        // if(this.state.chartIsChecked) {
+        //      this.updateChartExec()
+        // }
     };
 
     constructNewQuery = (query, condition) => {
@@ -72,13 +82,16 @@ class MainPage extends Component {
     };
 
     clickGenerate = async (query) => {
+        this.toggleLoaderSection();
+        // this.toggleChartSection();
+
         const Data = {
             database: this.state.database,
             query: query,
             negation: this.state.negationKey,
+            rate: this.state.randomRate,
         };
         this.setState({initialQuery: query});
-        this.toggleLoaderSection();
         let result = await Requests.create('generate', Data)
         if (result.ok) {
             this.toggleLoaderSection();
@@ -101,35 +114,58 @@ class MainPage extends Component {
             this.setState({newQuery: newQuery, results: result_cond});
 
             if(this.state.chartIsChecked) {
-                const Data = {
-                    database: this.state.database,
-                    query: newQuery
-                };
-                let newResult = await Requests.create(`execute`, Data);
-                if (newResult.ok) {
-                    let oldSize = result.data.oldSize;
-                    let difference = Math.abs(oldSize - newResult.data.results.length)
-                    this.setState({chartData: [difference, oldSize]})
-                    this.toggleChartSection()
-                }
+                    this.setState({posIds: result.data.pos_ids})
+                    // this.setState({negIds: result.data.neg_ids})
+               await this.updateChartExec()
             }
-
+            this.toggleChartSection(this.state.chartIsChecked)
         } else {
             this.toggleLoaderSection();
+            // this.toggleChartSection(this.state.chartIsChecked)
             NotificationManager.error(result.data, "", 4000);
         }
 
     };
 
+    checkNegPosEx = (tuples) => {
+        let oldInNew = 0;
+        // let newInNeg = 0;
+        tuples.forEach(idTuple =>{
+            this.state.posIds.forEach(posId => {
+                if(idTuple === posId) oldInNew++;
+            });
+            // this.state.negIds.forEach(negId => {
+            //     if(idTuple === negId) newInNeg++;
+            // });
+        });
+        const notOldInNew = this.state.posIds.length - oldInNew;
+        const completeNew = tuples.length - oldInNew;
+        return [oldInNew, notOldInNew, completeNew]
+    }
+
+    updateChartExec = async () =>{
+        if(this.state.chartIsChecked) {
+            const Data = {
+                database: this.state.database,
+                query: this.state.newQuery
+            };
+            let newResult = await Requests.create(`executeId`, Data);
+            if (newResult.ok) {
+                const calculations = this.checkNegPosEx(newResult.data.results)
+                console.log(calculations)
+                this.setState({chartData: calculations})
+            }
+        }
+    }
     toggleLoaderSection = () => {
         this.setState(prevState => ({
             loader: !prevState.loader
         }));
     };
 
-    toggleChartSection = () => {
+    toggleChartSection = (value) => {
         this.setState(prevState => ({
-            showChart: !prevState.showChart
+            showChart: value
         }));
     };
 
@@ -144,7 +180,6 @@ class MainPage extends Component {
             showTable: !prevState.showTable
         }));
     };
-
 
     clickExecute = async (query) => {
         const Data = {
@@ -167,20 +202,25 @@ class MainPage extends Component {
     };
 
     databaseIsChanged = (database) => {
-        console.log(database);
         this.setState({database: database});
-
     }
     expandButtonClicked = () => {
         this.toggleTablePopup()
     }
+    isColumnSelected = (column) =>{
+        console.log(column)
+        // this.setState(prevState=> ({newQuery: prevState.newQuery+=` ${column},`}))
+    }
 
+    rateIsSelected = (rate) =>{
+        this.setState({randomRate: Number(rate)})
+}
     render() {
         return (
             <div>
                 <div className="main">
                     <div className="elementsCol">
-                        <DatabaseInformation chartCheckboxChange={this.chartCheckboxChange} databaseIsChanged={this.databaseIsChanged} negationIsSelected={this.negationIsSelected}/>
+                        <DatabaseInformation rateIsSelected={this.rateIsSelected} isColumnSelected={this.isColumnSelected} chartCheckboxChange={this.chartCheckboxChange} databaseIsChanged={this.databaseIsChanged} negationIsSelected={this.negationIsSelected}/>
                     </div>
                     {this.state.loader ? <Loader active={true}/>: null}
                     <div className="elementsCol">
@@ -195,6 +235,7 @@ class MainPage extends Component {
                             </div>
                             : null
                         }
+                        {this.state.showChart? <PieChart data={this.state.chartData}/> : null}
                         {this.state.showTableSection ?
                             <div className="listDiv">
                                 <Container>
@@ -208,8 +249,16 @@ class MainPage extends Component {
                             </div>
                             : null
                         }
-                        {this.state.showChart? <PieChart data={this.state.chartData}/> : null
+                        {
+                            this.state.showTableSection ?
+                                <div className='listDiv'>
+                                    <Header as='h2'>Data Distribution</Header>
+                                    <BarChart columns = {this.state.columns.slice(0,  -1)} data = {this.state.queryResults}/>
+                                    <Divider/>
+                                </div>
+                                :null
                         }
+
 
                     </div>
 
