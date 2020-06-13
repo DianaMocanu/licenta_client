@@ -11,8 +11,14 @@ class ListResult extends React.Component {
             elements: []
         }
     }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.results !== this.props.results){
+            this.setState({areChecked: {0:true}})
+        }
+    }
 
     filterChecked = () => {
+        console.log(this.state.areChecked)
         Object.filter = (obj, predicate) =>
             Object.keys(obj)
                 .filter(key => predicate(obj[key]))

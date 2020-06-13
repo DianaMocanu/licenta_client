@@ -1,5 +1,5 @@
 import {HorizontalBar} from "react-chartjs-2";
-import React from "react";
+import React, {useState} from "react";
 
 const maxAndMin = (array)=>{
    const min =  Math.min.apply(null, array) // 1
@@ -7,8 +7,17 @@ const maxAndMin = (array)=>{
     return [min, max]
 }
 
+const calculateSteps = (maxArray, minArray, steps) =>{
+    const max = Math.max.apply(null, maxArray);
+    const min = Math.min.apply(null, minArray);
+    const range = max-min;
+    const step = range/steps;
+    const mag10= Math.ceil(Math.log(step)/Math.log(10));
+    return Math.pow(10, mag10);
+}
 function BarChart(props){
 
+    // const [step, setStep] = useState(0);
     const constructData = () =>{
         let finalData = [];
         let maxArray, minArray;
@@ -41,7 +50,6 @@ function BarChart(props){
         labels : props.columns,
         datasets: [
             {
-                label: 'Rainfall',
                 backgroundColor: [
                     '#773344',
                     '#7EBDC2',
@@ -50,7 +58,15 @@ function BarChart(props){
                     '#087E8B',
                     '#C884A6',
                     '#14BDEB',
-                    '#A663CC'
+                    '#A663CC',
+                    '#a77d93',
+                    '#73d5ef',
+                    '#cb9ae7',
+                    '#3d151f',
+                    '#1f4649',
+                    '#fd5031',
+                    '#f3cd58',
+                    '#1eb2c2'
                 ],
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
@@ -72,8 +88,15 @@ function BarChart(props){
                  scales: {
                      xAxes:[{
                          ticks: {
-                             steps: 0,
-                             stepSize: 200,
+                             steps: 2,
+                             // stepSize: 250,
+                             // autoSkip: false,
+                         }
+                     }],
+                     yAxes:[{
+                         ticks: {
+                             // steps: 5,
+                             // stepSize: 250,
                              autoSkip: false,
                          }
                      }],

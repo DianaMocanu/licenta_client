@@ -59,12 +59,10 @@ class MainPage extends Component {
             return;
         }
 
-        console.log(resultIds)
         let newCond = "";
         resultIds.forEach((id) => {
             let idInt = parseInt(id);
-            if( typeof idInt === "number")
-                newCond += "( " + this.state.results[idInt].value + ") or ";
+            newCond += "( " + this.state.results[idInt].value + ") or ";
         });
 
         const finalCond = newCond.slice(0, newCond.length - 3);
