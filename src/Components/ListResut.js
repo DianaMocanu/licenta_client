@@ -13,8 +13,21 @@ class ListResult extends React.Component {
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.results !== this.props.results){
-            this.setState({areChecked: {0:true}})
+            let newChecked = {}
+            this.props.results.forEach((val, index) => {
+                newChecked[index] = false;}
+            );
+            newChecked[0]= true
+            this.setState({areChecked: newChecked}, this.render)
         }
+    }
+    componentDidMount() {
+        let newChecked = {}
+        this.props.results.forEach((val, index) => {
+            newChecked[index] = false;}
+        );
+        newChecked[0]= true
+        this.setState({areChecked: newChecked}, () => console.log(this.state.areChecked))
     }
 
     filterChecked = () => {
@@ -44,7 +57,7 @@ class ListResult extends React.Component {
             return (
                 <List.Item key={index}>
                     <List.Content>
-                        <Checkbox className="listFont" label={value} id={index} defaultChecked={checked}
+                        <Checkbox className="listFont" label={value} id={index} checked={this.state.areChecked[index]}
                                   onChange={this.checkCheckBox}/>
                     </List.Content>
                 </List.Item>
