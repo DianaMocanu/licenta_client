@@ -13,25 +13,24 @@ class ListResult extends React.Component {
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.results !== this.props.results){
-            let newChecked = {}
-            this.props.results.forEach((val, index) => {
-                newChecked[index] = false;}
-            );
-            newChecked[0]= true
-            this.setState({areChecked: newChecked}, this.render)
+            this.setState({areChecked: this.createCheckedObject()}, this.render)
         }
     }
     componentDidMount() {
+        this.setState({areChecked: this.createCheckedObject()})
+    }
+
+    createCheckedObject = () =>{
         let newChecked = {}
         this.props.results.forEach((val, index) => {
             newChecked[index] = false;}
         );
         newChecked[0]= true
-        this.setState({areChecked: newChecked}, () => console.log(this.state.areChecked))
-    }
+        return newChecked
+        }
 
     filterChecked = () => {
-        console.log(this.state.areChecked)
+        // noinspection CommaExpressionJS
         Object.filter = (obj, predicate) =>
             Object.keys(obj)
                 .filter(key => predicate(obj[key]))

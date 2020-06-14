@@ -151,9 +151,9 @@ class MainPage extends Component {
     };
 
     toggleChartSection = (value) => {
-        this.setState(prevState => ({
+        this.setState({
             showChart: value
-        }));
+        });
     };
 
     toggleTableSection = () => {

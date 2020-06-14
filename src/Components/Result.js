@@ -4,6 +4,7 @@ import 'react-notifications/lib/notifications.css';
 import {Button} from "semantic-ui-react";
 
 function Result(props){
+    // eslint-disable-next-line no-unused-vars
     const [query, setQuery] = useState('');
 
 

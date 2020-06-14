@@ -1,5 +1,5 @@
 import {HorizontalBar} from "react-chartjs-2";
-import React, {useState} from "react";
+import React from "react";
 
 const maxAndMin = (array)=>{
    const min =  Math.min.apply(null, array) // 1
